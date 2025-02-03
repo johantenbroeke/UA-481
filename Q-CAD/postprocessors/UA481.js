@@ -15,16 +15,24 @@ function UA481(documentInterface, camDocumentInterface) {
     this.header = [
         "(postprocessor: UA-481)",
         "[N] G21 G17 G90 G80 G54",
+        "",
+    ];
+
+    this.toolpathHeader = [
+		"",
+		"(Begin Tool Path [TOOLPATH_INDEX]: [TOOLPATH_NAME])"
     ];
 
     this.toolHeader = [
+        "",
         "(tool change)",
         "[N] [T] M06",
         "[N] G54",
-        "[N] G00 G43 [ZS!] H[T#]",
+        "[N] G43 [ZS!] H[T#] Z100.000",
         "[N] [S] M03",
         "[N] G94",
         "(end tool change)",
+        "",
     ];
 
 }
