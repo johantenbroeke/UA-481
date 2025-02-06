@@ -1,0 +1,3 @@
+function () {
+    this.toolDiameterOverride = undefined;
+}

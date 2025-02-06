@@ -24,8 +24,11 @@ function getAllMethodNames(obj) {
 function UA481(documentInterface, camDocumentInterface) {
     GCodeBase.call(this, documentInterface, camDocumentInterface);
 
+    this.getCamExporterV2API = false;
     this.decimals = 4;
     this.unit = RS.Millimeter;
+    this.options = { trailingZeroes:true };
+    this.toolChangeMode = CamExporterV2.FirstMoveMode.BeforeFirstXYMove;
 
     this.outputOffsetPath = true;
 
@@ -35,54 +38,24 @@ function UA481(documentInterface, camDocumentInterface) {
         "",
     ];
 
-    qDebug("<<<<<< ");
-    m = getAllMethodNames(Object.getPrototypeOf(this));
-    qDebug(m);
-    // m.forEach(function(name) {
-    //   // Skip the constructor if you don't need it
-    //   if (name === 'constructor') return;
-    //
-    //   var method = UA481.prototype[name];
-    //   if (typeof method === 'function') {
-    //     qDebug('Method: ' + name);
-    //     qDebug(method.toString());
-    //     qDebug('------');
-    //   }
-    // });
+    // Use introspection to get the js API
+    // Not perfect but it beats being totally in the dark
+    if this.getCamExporterV2API: // look in syslog
+      qDebug("<<<<<< ");
+      m = getAllMethodNames(Object.getPrototypeOf(this));
+      m.forEach(function(name) {
+        // Skip the constructor if you don't need it
+        if (name === 'constructor') return;
 
-    // qDebug(CamExporterV2.prototype.writeFile.toString());
-    // qDebug(CamExporterV2.prototype.detectAndWriteToolChange.toString());
-    // qDebug(CamExporterV2.prototype.writeToolHeader.toString());
-    // qDebug(UA481.prototype.writeBlock.toString());
-    qDebug(">>>>>> ");
-
-    // var filePath = "/tmp/test.js"
-    // var fileName = new QFileInfo(filePath).fileName(); 
-    // var file = new QFile(filePath);
-    // var flags = new QIODevice.OpenMode(QIODevice.WriteOnly | QIODevice.Text); 
-    // filePath = new QFileInfo(filePath).canonicalFilePath();
-    // var stream = new QTextStream(file);
-    // stream.setCodec("UTF-8");
-    // stream.writeString("poep\n");
-    // file.close();
-
-    var filePath = "/tmp/test2.js";
-    var fileName = new QFileInfo(filePath).fileName();
-    var file = new QFile(filePath);
-    var flags = QIODevice.WriteOnly | QIODevice.Text;  // Combine flags directly
-
-    // Open the file for writing
-    if (!file.open(flags)) {
-        console.error("Failed to open file:", filePath);
-    } else {
-        var stream = new QTextStream(file);
-        stream.setCodec("UTF-8");
-        stream.writeString("poep\n");
-        stream.flush()
-        file.close();
-    }
-
-
+        var method = UA481.prototype[name];
+        if (typeof method === 'function') {
+          qDebug('*BEGIN*');
+          qDebug('Method: ' + name);
+          qDebug(method.toString());
+          qDebug('*END*');
+        }
+      });
+      qDebug(">>>>>> ");
 
     this.toolpathHeader = [
       "",

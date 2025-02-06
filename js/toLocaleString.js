@@ -1,0 +1,3 @@
+function toLocaleString() {
+    [native code]
+}
