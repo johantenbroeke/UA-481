@@ -1,0 +1,3 @@
+function () {
+    this.zCuttingLevelOverride = undefined;
+}

@@ -1,0 +1,3 @@
+function valueOf() {
+    [native code]
+}

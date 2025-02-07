@@ -1,0 +1,3 @@
+function (entity) {
+    return false;
+}

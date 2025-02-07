@@ -1,0 +1,3 @@
+function isPrototypeOf() {
+    [native code]
+}

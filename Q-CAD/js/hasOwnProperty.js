@@ -1,0 +1,3 @@
+function hasOwnProperty() {
+    [native code]
+}
