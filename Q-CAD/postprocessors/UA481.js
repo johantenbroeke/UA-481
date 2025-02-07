@@ -28,19 +28,20 @@ function UA481(documentInterface, camDocumentInterface) {
     this.decimals = 4;
     this.unit = RS.Millimeter;
     this.options = { trailingZeroes:true };
-    this.toolChangeMode = CamExporterV2.FirstMoveMode.BeforeFirstXYMove;
-
+    this.toolChangeMode = CamExporterV2.FirstMoveMode.BeforeFirstZMove;
+    this.alwaysWriteG1 = true;
     this.outputOffsetPath = true;
+    this.zClearance = 50.0;
+    this.zCuttingDepth = -0.5;
 
     this.header = [
         "(postprocessor: UA-481)",
         "[N] G21 G17 G90 G80 G54",
-        "",
     ];
 
     // Use introspection to get the js API
     // Not perfect but it beats being totally in the dark
-    if this.getCamExporterV2API: // look in syslog
+    if (this.getCamExporterV2API){ // look in syslog
       qDebug("<<<<<< ");
       m = getAllMethodNames(Object.getPrototypeOf(this));
       m.forEach(function(name) {
@@ -56,6 +57,7 @@ function UA481(documentInterface, camDocumentInterface) {
         }
       });
       qDebug(">>>>>> ");
+    }
 
     this.toolpathHeader = [
       "",
@@ -64,12 +66,10 @@ function UA481(documentInterface, camDocumentInterface) {
 
     this.toolHeader = [
         "",
-        "([X] [Y] [Z])",
-        "(tool change [ZS!])",
+        "(tool change)",
         "[N] [T] M06",
         "[N] G54",
-        //"[N] G43 [ZS] H[T#] Z100.000",
-        "[N] G43 [ZS] H[T#] [ZS!]",
+        "[N] G43 [ZS] H[T#] Z50.0000",
         "[N] [S] M03",
         "[N] G94",
         "(end tool change)",
@@ -78,5 +78,24 @@ function UA481(documentInterface, camDocumentInterface) {
 
 }
 
- UA481.prototype = new GCodeBase();
- UA481.displayName = "UA-481";
+UA481.prototype = new GCodeBase();
+UA481.displayName = "UA-481";
+UA481.prototype.postInitDialog = function(obj, dialog, di, obj) {
+    if (dialog.objectName==="CamProfileToolpathDialog") {
+        // change default cutting depth:
+        var leCuttingDepth = dialog.findChild("CamZCuttingDepth");
+        leCuttingDepth.setValue(-0.5);
+
+        // change default cutting depth:
+        var safez = dialog.findChild("CamZClearance");
+        safez.setValue(50);
+
+        // change default side:
+        var cbSide = dialog.findChild("CamSide");
+        cbSide.currentIndex = 0; // 0: none, 1: outside, 2: inside
+
+        // change default direction:
+        var cbDirection = dialog.findChild("CamDirection");
+        cbDirection.currentIndex = 0; // 0: Left, 1: Right
+    }
+};
