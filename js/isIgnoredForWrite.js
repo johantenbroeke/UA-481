@@ -1,3 +1,0 @@
-function (entity) {
-    return false;
-}

@@ -1,3 +1,0 @@
-function () {
-    this.zClearanceLevelOverride = undefined;
-}

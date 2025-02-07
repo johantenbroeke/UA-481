@@ -1,3 +1,0 @@
-function valueOf() {
-    [native code]
-}

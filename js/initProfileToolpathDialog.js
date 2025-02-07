@@ -1,1 +1,0 @@
-function (dialog, di, block) {}

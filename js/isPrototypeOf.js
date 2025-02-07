@@ -1,3 +1,0 @@
-function isPrototypeOf() {
-    [native code]
-}

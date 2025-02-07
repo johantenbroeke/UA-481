@@ -1,2 +1,0 @@
-function (menu, item) {
-}

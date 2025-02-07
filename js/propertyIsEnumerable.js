@@ -1,3 +1,0 @@
-function propertyIsEnumerable() {
-    [native code]
-}
