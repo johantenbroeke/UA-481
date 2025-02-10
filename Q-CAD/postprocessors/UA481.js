@@ -84,7 +84,7 @@ UA481.prototype.postInitDialog = function(obj, dialog, di, obj) {
     if (dialog.objectName==="CamProfileToolpathDialog") {
         // change default cutting depth:
         var leCuttingDepth = dialog.findChild("CamZCuttingDepth");
-        leCuttingDepth.setValue(-0.5);
+        leCuttingDepth.setValue(0.5);
 
         // change default cutting depth:
         var safez = dialog.findChild("CamZClearance");

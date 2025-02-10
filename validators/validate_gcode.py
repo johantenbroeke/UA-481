@@ -114,8 +114,8 @@ def validate_gcode(file_path, min_z):
 def main():
     parser = argparse.ArgumentParser(description="Validate G-code for a 3-axis machine.")
     parser.add_argument("gcode_file", help="Path to the G-code file to validate.")
-    parser.add_argument("--min_z", type=float, default=0.0,
-                        help="Minimum allowed Z value (default: 0.0)")
+    parser.add_argument("--min_z", type=float, default=-0.6,
+                        help="Minimum allowed Z value (default: -0.6)")
     args = parser.parse_args()
 
     errs = validate_gcode(args.gcode_file, args.min_z)
